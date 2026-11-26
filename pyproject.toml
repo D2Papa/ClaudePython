@@ -1,0 +1,37 @@
+[project]
+name = "child-lock"
+version = "0.1.0"
+description = "전자식 차일드락 제어 SW (PC/SIL 참조 구현)"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+addopts = "-ra"
+
+[tool.coverage.run]
+branch = true
+source = ["src", "tools"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests", "tools"]
+# Claude Code 스킬·에이전트 보조 스크립트는 제품 코드가 아니므로 제외
+extend-exclude = [".claude"]
+
+[tool.ruff.lint]
+# E/W: pycodestyle, F: pyflakes, I: import 정렬, N: 명명 규칙(Google), B: bugbear,
+# C90: 순환 복잡도, UP: 3.12 문법
+select = ["E", "W", "F", "I", "N", "B", "C90", "UP"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
