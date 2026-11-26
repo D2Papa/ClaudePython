@@ -1,0 +1,110 @@
+{
+  "model": "# SWR-001/002: driver command matrix (source x action x side x previous output)\nSource: BUTTON, AVN, VOICE, MOBILE\nAction: LOCK, UNLOCK\nSide:   LEFT, RIGHT, ALL\nPrev:   RR, LL, LR, RL\n",
+  "order": 2,
+  "seed": 1,
+  "parameters": [
+    "Source",
+    "Action",
+    "Side",
+    "Prev"
+  ],
+  "rows": [
+    {
+      "Source": "AVN",
+      "Action": "UNLOCK",
+      "Side": "LEFT",
+      "Prev": "LR"
+    },
+    {
+      "Source": "MOBILE",
+      "Action": "UNLOCK",
+      "Side": "ALL",
+      "Prev": "RL"
+    },
+    {
+      "Source": "BUTTON",
+      "Action": "UNLOCK",
+      "Side": "RIGHT",
+      "Prev": "RR"
+    },
+    {
+      "Source": "AVN",
+      "Action": "LOCK",
+      "Side": "RIGHT",
+      "Prev": "RL"
+    },
+    {
+      "Source": "VOICE",
+      "Action": "LOCK",
+      "Side": "LEFT",
+      "Prev": "LL"
+    },
+    {
+      "Source": "MOBILE",
+      "Action": "LOCK",
+      "Side": "RIGHT",
+      "Prev": "LL"
+    },
+    {
+      "Source": "VOICE",
+      "Action": "LOCK",
+      "Side": "ALL",
+      "Prev": "RR"
+    },
+    {
+      "Source": "BUTTON",
+      "Action": "LOCK",
+      "Side": "LEFT",
+      "Prev": "RL"
+    },
+    {
+      "Source": "MOBILE",
+      "Action": "LOCK",
+      "Side": "ALL",
+      "Prev": "LR"
+    },
+    {
+      "Source": "BUTTON",
+      "Action": "UNLOCK",
+      "Side": "ALL",
+      "Prev": "LL"
+    },
+    {
+      "Source": "VOICE",
+      "Action": "UNLOCK",
+      "Side": "RIGHT",
+      "Prev": "LR"
+    },
+    {
+      "Source": "MOBILE",
+      "Action": "LOCK",
+      "Side": "LEFT",
+      "Prev": "RR"
+    },
+    {
+      "Source": "VOICE",
+      "Action": "UNLOCK",
+      "Side": "ALL",
+      "Prev": "RL"
+    },
+    {
+      "Source": "BUTTON",
+      "Action": "LOCK",
+      "Side": "ALL",
+      "Prev": "LR"
+    },
+    {
+      "Source": "AVN",
+      "Action": "LOCK",
+      "Side": "ALL",
+      "Prev": "RR"
+    },
+    {
+      "Source": "AVN",
+      "Action": "UNLOCK",
+      "Side": "RIGHT",
+      "Prev": "LL"
+    }
+  ],
+  "row_count": 16
+}

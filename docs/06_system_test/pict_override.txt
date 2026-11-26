@@ -1,0 +1,7 @@
+# SWR-005/006/009: approach risk x unlock side x re-input timing x speed x ISOFIX x adult
+Risk:    LEFT, RIGHT, BOTH
+Unlock:  LEFT, RIGHT, ALL
+Reinput: NONE, WITHIN, LATE
+Speed:   STOP, SLOW
+Isofix:  NONE, LEFT, RIGHT
+Adult:   NO, YES

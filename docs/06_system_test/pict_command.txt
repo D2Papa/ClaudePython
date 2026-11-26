@@ -1,0 +1,5 @@
+# SWR-001/002: driver command matrix (source x action x side x previous output)
+Source: BUTTON, AVN, VOICE, MOBILE
+Action: LOCK, UNLOCK
+Side:   LEFT, RIGHT, ALL
+Prev:   RR, LL, LR, RL

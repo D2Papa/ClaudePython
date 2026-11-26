@@ -1,0 +1,112 @@
+{
+  "model": "# SWR-005/006/009: approach risk x unlock side x re-input timing x speed x ISOFIX x adult\nRisk:    LEFT, RIGHT, BOTH\nUnlock:  LEFT, RIGHT, ALL\nReinput: NONE, WITHIN, LATE\nSpeed:   STOP, SLOW\nIsofix:  NONE, LEFT, RIGHT\nAdult:   NO, YES\n",
+  "order": 2,
+  "seed": 1,
+  "parameters": [
+    "Risk",
+    "Unlock",
+    "Reinput",
+    "Speed",
+    "Isofix",
+    "Adult"
+  ],
+  "rows": [
+    {
+      "Risk": "LEFT",
+      "Unlock": "ALL",
+      "Reinput": "LATE",
+      "Speed": "STOP",
+      "Isofix": "NONE",
+      "Adult": "NO"
+    },
+    {
+      "Risk": "RIGHT",
+      "Unlock": "RIGHT",
+      "Reinput": "NONE",
+      "Speed": "SLOW",
+      "Isofix": "RIGHT",
+      "Adult": "YES"
+    },
+    {
+      "Risk": "BOTH",
+      "Unlock": "ALL",
+      "Reinput": "WITHIN",
+      "Speed": "SLOW",
+      "Isofix": "LEFT",
+      "Adult": "YES"
+    },
+    {
+      "Risk": "RIGHT",
+      "Unlock": "LEFT",
+      "Reinput": "WITHIN",
+      "Speed": "STOP",
+      "Isofix": "RIGHT",
+      "Adult": "NO"
+    },
+    {
+      "Risk": "RIGHT",
+      "Unlock": "RIGHT",
+      "Reinput": "NONE",
+      "Speed": "STOP",
+      "Isofix": "LEFT",
+      "Adult": "NO"
+    },
+    {
+      "Risk": "LEFT",
+      "Unlock": "LEFT",
+      "Reinput": "LATE",
+      "Speed": "SLOW",
+      "Isofix": "RIGHT",
+      "Adult": "YES"
+    },
+    {
+      "Risk": "LEFT",
+      "Unlock": "RIGHT",
+      "Reinput": "WITHIN",
+      "Speed": "SLOW",
+      "Isofix": "NONE",
+      "Adult": "YES"
+    },
+    {
+      "Risk": "BOTH",
+      "Unlock": "LEFT",
+      "Reinput": "NONE",
+      "Speed": "SLOW",
+      "Isofix": "NONE",
+      "Adult": "NO"
+    },
+    {
+      "Risk": "BOTH",
+      "Unlock": "RIGHT",
+      "Reinput": "LATE",
+      "Speed": "STOP",
+      "Isofix": "LEFT",
+      "Adult": "YES"
+    },
+    {
+      "Risk": "LEFT",
+      "Unlock": "LEFT",
+      "Reinput": "NONE",
+      "Speed": "SLOW",
+      "Isofix": "LEFT",
+      "Adult": "YES"
+    },
+    {
+      "Risk": "BOTH",
+      "Unlock": "ALL",
+      "Reinput": "NONE",
+      "Speed": "SLOW",
+      "Isofix": "RIGHT",
+      "Adult": "YES"
+    },
+    {
+      "Risk": "RIGHT",
+      "Unlock": "ALL",
+      "Reinput": "LATE",
+      "Speed": "STOP",
+      "Isofix": "NONE",
+      "Adult": "YES"
+    }
+  ],
+  "row_count": 12
+}

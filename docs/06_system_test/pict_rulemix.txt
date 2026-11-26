@@ -1,0 +1,14 @@
+# SWR-022: simultaneous rule inputs (3+ rules at once). Stale = group G8 (isofix) stops updating.
+Ign:    ON, OFF
+Crash:  NONE, PENDING, CONFIRMED
+Emerg:  NONE, FIRE, OVERTEMP
+Stale:  NO, YES
+Fault:  NO, YES
+Isofix: NONE, LEFT, RIGHT
+Risk:   NONE, LEFT, RIGHT
+Adult:  NO, YES
+Speed:  STOP, DRIVE
+Cmd:    NONE, LOCK_ALL, UNLOCK_ALL
+Prev:   RR, LL, LR
+
+IF [Stale] = "YES" THEN [Isofix] = "NONE";
