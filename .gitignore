@@ -16,6 +16,12 @@ coverage.xml
 htmlcov/
 reports/
 
+# 비밀 정보 (Jenkins API 키 등): 저장소에 커밋 금지
+.env
+.env.*
+*.secret
+jenkins_token*
+
 # OEM 입력 문서: 교육용 저작물로 외부 공개 금지
 OEM/
 
