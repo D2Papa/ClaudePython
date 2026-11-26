@@ -98,12 +98,14 @@ GitHub Flow를 따른다: `main`과 짧게 쓰고 지우는 작업 브랜치만 
 
 ## CI
 
-- Jenkins를 사용한다. 서버: `72.16.7.122` (포트·Job 이름 미정).
-- 파이프라인은 저장소 루트의 `Jenkinsfile`로 정의하고, PR마다 다음을 실행한다:
+- Jenkins를 사용한다. 서버: `http://172.16.7.122` (포트 80, 이 PC에서 서비스로 실행, Windows 11 내장 노드, 서비스 계정 LocalSystem).
+- Job: `ClaudePython-CI` (Multibranch Pipeline). GitHub에서 사설 IP로 webhook을 보낼 수 없으므로 5분마다 브랜치를 검사해 새 커밋을 빌드한다. 기존 `ClaudePython`(FreeStyle) Job은 사용자가 만든 것이므로 건드리지 않는다.
+- API 인증: 사용자 `admin` + API 키. **API 키는 저장소·커밋·메모리 어디에도 저장하지 않는다.** 필요하면 사용자에게 받는다.
+- 파이프라인은 저장소 루트의 `Jenkinsfile`로 정의하고, Python 3.12·3.13에서 다음을 실행한다:
   1. `ruff check .` 및 `ruff format --check .`
-  2. `python -m pytest --cov=src --cov-branch --cov-fail-under=100`
-  3. 함수 길이·주석률 검사 (측정 스크립트 추가 후)
-- CI 결과는 PR에 표시되어야 하며, 실패하면 병합하지 않는다.
+  2. `python -m pytest -W error --cov --cov-branch --cov-fail-under=100`
+  3. `python -m tools.check_quality tools src` (함수 길이·주석률)
+- CI 결과가 실패하면 병합하지 않는다. 보고할 때는 Jenkins 결과인지 로컬 실행 결과인지 구분해 밝힌다.
 
 ## 기타
 
