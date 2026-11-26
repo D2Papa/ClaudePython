@@ -30,8 +30,12 @@ extend-exclude = [".claude"]
 
 [tool.ruff.lint]
 # E/W: pycodestyle, F: pyflakes, I: import 정렬, N: 명명 규칙(Google), B: bugbear,
-# C90: 순환 복잡도, UP: 3.12 문법
-select = ["E", "W", "F", "I", "N", "B", "C90", "UP"]
+# C90: 순환 복잡도, UP: 3.12 문법, D1: docstring 누락 (Doxygen 주석 존재 검사, SAP-001)
+select = ["E", "W", "F", "I", "N", "B", "C90", "UP", "D1"]
+
+[tool.ruff.lint.per-file-ignores]
+# 시험 코드는 docstring 존재 검사 제외 (SAP-001)
+"tests/**" = ["D1"]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 10

@@ -6,7 +6,13 @@
 | 상위 입력 | OEM-SWR-001 OEM SW 요구사항 사양서 Rev 1.0 (BL-OEM-1.0) |
 | 기준선 | BL-SWR-1.0 |
 | A-SPICE | SWE.1 SW 요구사항 분석 |
-| 상태 | 검토 반영본 (REV-G1-001 지적 10건 반영) |
+| 상태 | 검토 반영본 (REV-G1-001 지적 반영) + CR-001 |
+
+### 변경 이력
+
+| 변경 | 근거 | 내용 |
+|---|---|---|
+| CR-001 | REV-G2-001 지적 3·5·8 | SWR-006 수용기준의 이유 코드 정정(`AUTO_LOCK_SPEED` → `APPROACH_RISK_LOCK`), SWR-006-5에 입력 지연·센서 고장 시 override 초기화 추가 (A-21), 2.2 초기 결정 값 명시 |
 
 ## 1. 목적과 범위
 
@@ -42,7 +48,7 @@ OEM-A 요구사항(OEM-SR/FR/NFR)과 외부 인터페이스 계약(OEM-IF)으로
 
 도어별 출력은 매 주기 **활성 규칙 중 우선순위가 가장 높은 규칙**이 정한다. 활성 규칙이 없으면 직전 출력을 유지한다. 운전자 명령은 해당 스냅샷의 주기에만 활성인 이벤트이고, 나머지 규칙은 조건이 참인 동안 활성이다.
 
-**초기 상태**: 시작 시 두 출력은 `RELEASE`, `state`는 `OFF`, 모든 그룹은 미수신(신선하지 않음)이다.
+**초기 상태**: 시작 시 두 출력은 `RELEASE`, `state`는 `OFF`, 모든 그룹은 미수신(신선하지 않음)이다. 첫 평가 전 상태 조회의 결정 값은 `priority_reason = NO_CHANGE`, `reason_code`·`reason_left`·`reason_right` = `NO_CHANGE`, `input_validity = STALE`, `warning_code` 없음이다 (CR-001).
 
 ### 2.3 이유 코드
 
@@ -175,9 +181,12 @@ OEM-A 요구사항(OEM-SR/FR/NFR)과 외부 인터페이스 계약(OEM-IF)으로
      - `t − t0 ≤ 10.0 s`
      - 차속 < 3.0 km/h (주행 중에는 override 불가) **[가정 A-13]**
   4. `t − t0 > 10.0 s`인 재입력은 새 첫 억제로 처리하고 `t0`를 갱신한다.
-  5. 도어 d의 접근위험이 FALSE로 바뀌는 주기, 또는 차속이 3.0 km/h 이상이 되는 주기에 도어 d의 override 상태와 `t0`를 모두 초기화한다 **[가정 A-13]**. 이후 위험이 TRUE이면 새 억제부터 시작한다.
+  5. 다음 조건 중 하나가 성립하는 주기에(그 주기 안에서) 도어 d의 override 상태와 `t0`를 모두 초기화한다. 이후 위험이 TRUE이면 새 억제부터 시작한다.
+     - 도어 d의 접근위험이 FALSE인 주기
+     - 차속이 3.0 km/h 이상인 주기 **[가정 A-13]**
+     - 입력 지연(DEGRADED) 또는 `sensor_fault = TRUE`인 주기 — 그 동안의 차속·접근위험 변화를 믿을 수 없으므로 보수적으로 초기화한다 **[가정 A-21]** (CR-001)
   6. override는 3.1 순위 1~6 규칙(ISOFIX 포함)을 넘지 못한다.
-- **수용기준**: 첫 억제 후 10.0 s 재입력 → override, 10.1 s → 억제(새 t0). 차속 3.0 km/h에서 10 s 내 재입력 → 억제, 2.9 km/h → override. 2.9 km/h에서 override 성립 후 접근위험 TRUE 유지한 채 3.0 km/h → 그 주기에 해당 도어 LOCK(`AUTO_LOCK_SPEED`), override 종료. 좌 override가 우 도어를 바꾸지 않는다. 위험 FALSE→TRUE 후 첫 unlock은 억제된다.
+- **수용기준**: 첫 억제 후 10.0 s 재입력 → override, 10.1 s → 억제(새 t0). 차속 3.0 km/h에서 10 s 내 재입력 → 억제, 2.9 km/h → override. 2.9 km/h에서 override 성립 후 접근위험 TRUE 유지한 채 3.0 km/h → 그 주기에 해당 도어 LOCK, 이유 `APPROACH_RISK_LOCK`(3.1 순위 7이 순위 9보다 우선), override 종료 (CR-001). override 중 sensor_fault TRUE → FALSE 복귀 후 접근위험 TRUE면 해당 도어 LOCK, `APPROACH_RISK_LOCK`. 좌 override가 우 도어를 바꾸지 않는다. 위험 FALSE→TRUE 후 첫 unlock은 억제된다.
 
 #### SWR-009 좌·우 독립 처리
 - **분류**: ASIL B · **출처**: OEM-SR-002 · **검증**: U, S
