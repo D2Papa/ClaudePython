@@ -1,0 +1,13 @@
+schema_version: "1.1"
+name: battery-monitor-no-ids
+expected_outcome: |
+  The requirements have no IDs, so the skill assigns IDs and records an ID-to-original-text mapping.
+  The workbook separates functional cases (low-voltage warning, over-voltage protection, warning
+  release) from non-functional ones (520 ms latency, 3% CPU load, 200 ms start-up after reset, 10 ms
+  sampling). BVA covers 8.9/9.0, 9.4/9.5, 16.0/16.1 V, 0.0/20.0 V range limits and 499/500 ms,
+  999/1000 ms durations with 3-value boundaries because the function is ASIL B. Pairwise is not forced
+  (too few independent parameters). Ambiguities such as hysteresis between 9.0 and 9.5 V or
+  out-of-range measurement handling are raised as requirement issues rather than guessed.
+  Coverage is 100% with traceability, edge cases are labelled "WoW 검증", and suggestions are labelled "제안".
+context:
+  scaffold_script: place-files.sh
