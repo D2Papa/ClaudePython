@@ -4,16 +4,23 @@
 
 ## 프로젝트
 
-ClaudePython — Python 프로젝트. 현재 저장소에는 `README.md`와 Claude Code 설정(`.claude/`)만 있고, 소스 코드·의존성·빌드·테스트 구성은 아직 없다. 이런 것들이 추가되면 이 파일을 갱신한다.
+ClaudePython — 전자식 차일드락 제어 SW의 PC/SIL 참조 구현 (교육용 가상 OEM 요구사항 `OEM/`, 저장소에 커밋하지 않음).
+
+- 소스: `src/child_lock/` — `safety/`(ASIL B), `qm/`(QM), `engine.py`(판정 코어), `event_log.py`, `replay.py`, `web/`(FastAPI 시뮬레이터). 구조와 의존 규칙은 `docs/02_architecture/`, 함수 설계는 `docs/03_detailed_design/`.
+- 시험: `tests/unit`(단위), `tests/integration`(통합), `tests/system`(`docs/06_system_test/scenarios.json` 실행). 아키텍처 의존 규칙은 `tests/unit/test_architecture.py`가 검사하므로, 새 모듈을 추가하면 그 파일의 `ALLOWED` 표에 등록한다.
+- 시뮬레이터 실행: `python -m uvicorn child_lock.web.app:app --app-dir src` 후 브라우저에서 `http://127.0.0.1:8000/`.
+- 진행 상태와 미결 사항: `docs/06_system_test/SVR-001_SW검증보고서.md`, OEM 질의는 `docs/00_plan/OEM-Q-001_OEM질의서.md`, 작업 가정은 `docs/00_plan/개발계획서.md` 5장.
 
 ## 개발 환경
 
-- 언어: Python 3.13 이상. 새 문법·표준 라이브러리 기능은 3.13에서 동작하는 것만 쓴다.
+- 언어: Python. 코드는 3.12 호환으로 작성하고 CI에서 3.12·3.13 모두 시험한다 (OEM 사양이 3.12, 개발계획서 D-01). Ruff `target-version = "py312"`.
 - 단위 테스트: pytest, 커버리지는 pytest-cov.
 - 정적 분석·포맷: Ruff. 설정은 `pyproject.toml`의 `[tool.ruff]`에 두고, 아래 품질 기준 중 Ruff로 검사할 수 있는 규칙(순환 복잡도 `C901`, 명명 규칙 `N`)을 켠다.
 - 이 PC의 실행 정보:
   - 셸은 Windows PowerShell 5.1 (`&&`/`||` 사용 불가 — `;`와 `if ($?) { ... }`로 연결).
-  - Python: `%LOCALAPPDATA%\Programs\Python\Python313\python.exe`, Git: `C:\Program Files\Git\cmd\git.exe`. 오래된 셸에서는 PATH에 없을 수 있으므로 전체 경로를 쓴다.
+  - Python: `%LOCALAPPDATA%\Programs\Python\Python313\python.exe` (3.12는 `Python312`), Git: `C:\Program Files\Git\cmd\git.exe`. 오래된 셸에서는 PATH에 없을 수 있으므로 전체 경로를 쓴다.
+  - Web 시험은 `starlette.testclient`가 아니라 `tests/unit/test_web_app.py`의 `AsgiClient`(httpx ASGI 전송)를 쓴다 — 설치된 Starlette의 사용 중단 경고가 `-W error`로 실패하기 때문.
+  - GitHub API로 PR을 만드는 것은 권한 설정상 막혀 있다. 브랜치를 push하고 PR 생성 링크를 사용자에게 전달한다.
   - 테스트는 `python -m pytest`로 실행한다 (`Scripts` 폴더가 PATH에 없을 수 있음).
 
 ## 개발 절차
